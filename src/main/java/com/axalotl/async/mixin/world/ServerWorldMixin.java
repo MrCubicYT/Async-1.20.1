@@ -120,7 +120,7 @@ public abstract class ServerWorldMixin implements StructureWorldAccess {
     }
 
     @WrapMethod(method = "emitGameEvent")
-    private synchronized void postBlockEntityTick(RegistryEntry<GameEvent> event, Vec3d emitterPos, GameEvent.Emitter emitter, Operation<Void> original) {
+    private synchronized void postBlockEntityTick(GameEvent event, Vec3d emitterPos, GameEvent.Emitter emitter, Operation<Void> original) {
         original.call(event, emitterPos, emitter);
     }
 }

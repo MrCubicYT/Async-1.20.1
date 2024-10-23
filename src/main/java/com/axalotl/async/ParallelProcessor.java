@@ -86,7 +86,7 @@ public class ParallelProcessor {
         if (Async.config.disabled || Async.config.disableEntity || isModEntity(entityIn) ||
                 specialEntities.contains(entityIn.getClass()) ||
                 (Async.config.disableTNT && entityIn instanceof TntEntity) ||
-                (entityIn.portalManager != null && entityIn.portalManager.isInPortal())
+                (entityIn.hasPortalCooldown())
         ) {
             tickConsumer.accept(entityIn);
             return;
