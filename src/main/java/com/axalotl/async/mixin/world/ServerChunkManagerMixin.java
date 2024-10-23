@@ -4,8 +4,6 @@ import com.axalotl.async.ParallelProcessor;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.minecraft.server.world.ServerChunkManager;
-import net.minecraft.util.Util;
-import net.minecraft.util.profiler.Profiler;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkManager;
 import net.minecraft.world.chunk.ChunkStatus;
@@ -30,10 +28,10 @@ public abstract class ServerChunkManagerMixin extends ChunkManager {
         original.call(pos, chunk, status);
     }
 
-    @Redirect(method = "getChunk(IILnet/minecraft/world/chunk/ChunkStatus;Z)Lnet/minecraft/world/chunk/Chunk;", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;visit(Ljava/lang/String;)V"))
-    private void overwriteProfilerVisit(Profiler instance, String s) {
-        instance.visit("getChunkCacheMiss");
-    }
+//    @Redirect(method = "getChunk(IILnet/minecraft/world/chunk/ChunkStatus;Z)Lnet/minecraft/world/chunk/Chunk;", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;visit(Ljava/lang/String;)V"))
+//    private void overwriteProfilerVisit(Profiler instance, String s) {
+//        instance.visit("getChunkCacheMiss");
+//    }
 
     @Inject(method = "tickChunks", at = @At(value = "INVOKE", target = "Ljava/util/Collections;shuffle(Ljava/util/List;)V"))
     private void preChunkTick(CallbackInfo ci) {

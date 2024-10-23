@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.nio.file.Path;
 
-@Mixin(value = ThreadedAnvilChunkStorage.class, priority = 1500)
+@Mixin(value = ThreadedAnvilChunkStorage.class)
 public abstract class ServerChunkLoadingManagerMixin extends VersionedChunkStorage implements ChunkHolder.PlayersWatchingChunkProvider {
 
     public ServerChunkLoadingManagerMixin(Path directory, DataFixer dataFixer, boolean dsync) {
@@ -25,12 +25,13 @@ public abstract class ServerChunkLoadingManagerMixin extends VersionedChunkStora
     @Mutable
     private Int2ObjectMap<ThreadedAnvilChunkStorage.EntityTracker> entityTrackers = new Int2ObjectConcurrentHashMap<>();
 
-    //@Shadow
+    //@Shadow (Can't find this method 💀)
     //@Final
     //@Mutable
     //private List<ChunkLoader> loaders = new CopyOnWriteArrayList<>();
 
-    //@WrapMethod(method = "release")
+    //@WrapMethod(method = "release") (What even is this bruh)
     //private synchronized void release(AbstractChunkHolder chunkHolder, Operation<Void> original) {
+    // original.call(chunkHolder);
     //}
 }

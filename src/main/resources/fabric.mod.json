@@ -48,9 +48,6 @@
       "world.game_events": false
     }
   },
-  "breaks": {
-    "vmp": "*"
-  },
   "suggests": {
   }
 }
