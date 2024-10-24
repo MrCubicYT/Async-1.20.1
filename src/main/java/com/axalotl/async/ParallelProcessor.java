@@ -30,7 +30,7 @@ public class ParallelProcessor {
     @Setter
     protected static MinecraftServer server;
     protected static ExecutorService tickPool;
-    private  static  final Queue<CompletableFuture<Void>> entityTickFutures = new ConcurrentLinkedDeque<>();
+    private static final Queue<CompletableFuture<Void>> entityTickFutures = new ConcurrentLinkedQueue<>();
     protected static AtomicInteger ThreadPoolID = new AtomicInteger();
     @Getter
     public static AtomicInteger currentEnts = new AtomicInteger();
@@ -107,10 +107,10 @@ public class ParallelProcessor {
 
     public static void postEntityTick() {
         if (!Async.config.disabled && !Async.config.disableEntity) {
-            CompletableFuture<Void> allTasks = CompletableFuture
-                    .allOf(entityTickFutures.toArray(new CompletableFuture[0]))
-                    .orTimeout(5, TimeUnit.MINUTES);
-            allTasks.join();
+                CompletableFuture<Void> allTasks = CompletableFuture
+                        .allOf(entityTickFutures.toArray(new CompletableFuture[0]))
+                        .orTimeout(5, TimeUnit.MINUTES);
+                allTasks.join();
         }
     }
 
