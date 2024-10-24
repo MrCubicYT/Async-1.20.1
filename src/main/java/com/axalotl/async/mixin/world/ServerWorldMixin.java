@@ -56,11 +56,12 @@ public abstract class ServerWorldMixin implements StructureWorldAccess {
     @Unique
     ServerWorld thisWorld = (ServerWorld) (Object) this;
 
-//
-//    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V", ordinal = 2))
-//    private void preEntityTick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
-//        ParallelProcessor.preEntityTick();
-//    }
+    // (Up to date with commits)
+    //
+    //@Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;push(Ljava/lang/String;)V", ordinal = 2))
+    //private void preEntityTick(BooleanSupplier shouldKeepTicking, CallbackInfo ci) {
+    //    ParallelProcessor.preEntityTick();
+    //}
 
     @Redirect(method = "<init>", at = @At(value = "NEW", target = "(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/level/storage/LevelStorage$Session;Lcom/mojang/datafixers/DataFixer;Lnet/minecraft/structure/StructureTemplateManager;Ljava/util/concurrent/Executor;Lnet/minecraft/world/gen/chunk/ChunkGenerator;IIZLnet/minecraft/server/WorldGenerationProgressListener;Lnet/minecraft/world/chunk/ChunkStatusChangeListener;Ljava/util/function/Supplier;)Lnet/minecraft/server/world/ServerChunkManager;"))
     private ServerChunkManager overwriteServerChunkManager(ServerWorld world, LevelStorage.Session session, DataFixer dataFixer, StructureTemplateManager structureTemplateManager, Executor workerExecutor, ChunkGenerator chunkGenerator, int viewDistance, int simulationDistance, boolean dsync, WorldGenerationProgressListener worldGenerationProgressListener, ChunkStatusChangeListener chunkStatusChangeListener, Supplier persistentStateManagerFactory) {
@@ -84,11 +85,12 @@ public abstract class ServerWorldMixin implements StructureWorldAccess {
         }
     }
 
-
+    // (funny c2me breaks big optimisation which is weird, line 113 of parallel processor)
+    //
     //@Redirect(method = "method_31420", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tickEntity(Ljava/util/function/Consumer;Lnet/minecraft/entity/Entity;)V"))
     //private void overwriteEntityTicking (ServerWorld instance, Consumer consumer, Entity entity){
     //    ParallelProcessor.callEntityTick(consumer, entity, thisWorld);
-    //} (funny c2me breaks big optimisation which is weird, line 113 of parallel processor)
+    //}
 
     @Redirect(method = "addSyncedBlockEvent", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/ObjectLinkedOpenHashSet;add(Ljava/lang/Object;)Z"))
     private boolean overwriteQueueAdd(ObjectLinkedOpenHashSet<BlockEvent> objectLinkedOpenHashSet, Object object) {

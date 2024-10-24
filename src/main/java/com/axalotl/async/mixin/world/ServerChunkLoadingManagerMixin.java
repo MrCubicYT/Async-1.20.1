@@ -25,12 +25,16 @@ public abstract class ServerChunkLoadingManagerMixin extends VersionedChunkStora
     @Mutable
     private Int2ObjectMap<ThreadedAnvilChunkStorage.EntityTracker> entityTrackers = new Int2ObjectConcurrentHashMap<>();
 
-    //@Shadow (Can't find this method 💀)
+    // (Idk equivalent on 1.20.1 💀)
+    //
+    //@Shadow
     //@Final
     //@Mutable
     //private List<ChunkLoader> loaders = new CopyOnWriteArrayList<>();
 
-    //@WrapMethod(method = "release") (What even is this bruh)
+    // (Same Here)
+    //
+    //@WrapMethod(method = "release")
     //private synchronized void release(AbstractChunkHolder chunkHolder, Operation<Void> original) {
     // original.call(chunkHolder);
     //}
