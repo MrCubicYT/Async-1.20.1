@@ -3,7 +3,6 @@ package com.axalotl.async;
 import com.axalotl.async.serdes.SerDesHookTypes;
 import com.axalotl.async.serdes.SerDesRegistry;
 import com.axalotl.async.serdes.filter.ISerDesFilter;
-import com.mojang.authlib.GameProfile;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.entity.Entity;
@@ -14,11 +13,9 @@ import net.minecraft.entity.vehicle.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.SystemDetails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -78,6 +75,7 @@ public class ParallelProcessor {
         entityTickFutures.clear();
     }
 
+
     public static void callEntityTick(Consumer<Entity> tickConsumer, Entity entityIn, ServerWorld serverworld) {
         if (Async.config.disabled || Async.config.disableEntity || isModEntity(entityIn) ||
                 specialEntities.contains(entityIn.getClass()) ||
@@ -107,10 +105,10 @@ public class ParallelProcessor {
 
     public static void postEntityTick() {
         if (!Async.config.disabled && !Async.config.disableEntity) {
-                CompletableFuture<Void> allTasks = CompletableFuture
-                        .allOf(entityTickFutures.toArray(new CompletableFuture[0]))
-                        .orTimeout(5, TimeUnit.MINUTES);
-                allTasks.join();
+            CompletableFuture<Void> allTasks = CompletableFuture
+                    .allOf(entityTickFutures.toArray(new CompletableFuture[0]))
+                    .orTimeout(5, TimeUnit.MINUTES);
+            allTasks.join();
         }
     }
 

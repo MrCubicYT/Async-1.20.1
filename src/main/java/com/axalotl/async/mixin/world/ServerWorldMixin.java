@@ -87,10 +87,10 @@ public abstract class ServerWorldMixin implements StructureWorldAccess {
 
     // (funny c2me breaks big optimisation which is weird, line 113 of parallel processor)
     //
-    //@Redirect(method = "method_31420", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tickEntity(Ljava/util/function/Consumer;Lnet/minecraft/entity/Entity;)V"))
-    //private void overwriteEntityTicking (ServerWorld instance, Consumer consumer, Entity entity){
-    //    ParallelProcessor.callEntityTick(consumer, entity, thisWorld);
-    //}
+    @Redirect(method = "method_31420", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;tickEntity(Ljava/util/function/Consumer;Lnet/minecraft/entity/Entity;)V"))
+    private void overwriteEntityTicking (ServerWorld instance, Consumer consumer, Entity entity){
+        ParallelProcessor.callEntityTick(consumer, entity, thisWorld);
+    }
 
     @Redirect(method = "addSyncedBlockEvent", at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/ObjectLinkedOpenHashSet;add(Ljava/lang/Object;)Z"))
     private boolean overwriteQueueAdd(ObjectLinkedOpenHashSet<BlockEvent> objectLinkedOpenHashSet, Object object) {
