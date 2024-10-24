@@ -28,10 +28,10 @@ public abstract class ServerChunkManagerMixin extends ChunkManager {
         original.call(pos, chunk, status);
     }
 
-//    @Redirect(method = "getChunk(IILnet/minecraft/world/chunk/ChunkStatus;Z)Lnet/minecraft/world/chunk/Chunk;", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;visit(Ljava/lang/String;)V"))
-//    private void overwriteProfilerVisit(Profiler instance, String s) {
-//        instance.visit("getChunkCacheMiss");
-//    }
+    //@Redirect(method = "getChunk(IILnet/minecraft/world/chunk/ChunkStatus;Z)Lnet/minecraft/world/chunk/Chunk;", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;visit(Ljava/lang/String;)V"))
+    //private void overwriteProfilerVisit(Profiler instance, String s) {
+    //    instance.visit("getChunkCacheMiss");
+    //}
 
     @Inject(method = "tickChunks", at = @At(value = "INVOKE", target = "Ljava/util/Collections;shuffle(Ljava/util/List;)V"))
     private void preChunkTick(CallbackInfo ci) {

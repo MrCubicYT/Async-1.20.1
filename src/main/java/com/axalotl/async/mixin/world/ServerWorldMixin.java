@@ -25,6 +25,7 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.level.storage.LevelStorage;
 import org.objectweb.asm.Opcodes;
+import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -51,6 +52,7 @@ public abstract class ServerWorldMixin implements StructureWorldAccess {
     @Shadow
     @Final
     private MinecraftServer server;
+    @Shadow @Final private static Logger LOGGER;
     @Unique
     ServerWorld thisWorld = (ServerWorld) (Object) this;
 
